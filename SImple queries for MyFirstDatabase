@@ -1,0 +1,17 @@
+--employee gained 15% salary increase.
+UPDATE Hyr_din_lya_AB_fullstandig.personalSET lon = lon*1.15WHERE personalid = 3;
+
+--check second-highest salary
+SELECT max(lon), roll, fNamn,eNamnFROM Hyr_din_lya_fullstandig.personalWHERE lon < (SELECT max(lon) FROM Hyr_din_lya_fullstandig.personal);
+
+--cheack all inspections done by personlid 3
+SELECT personalid, fNamn,eNamn, bp.inspektionsid, inspektionsdatumFROM personalJOIN inspektionspersonal USING (personalid)JOIN bostadsinspektion bp USING (inspektionsid)WHERE personalid =3ORDER BY 5
+
+--check wich one in the company still has higher salary than personalid 3 after raise
+WITH hogstaLon AS (SELECT lon FROM Hyr_din_lya_AB_fullstandig.personalWHERE personalid =3)SELECT * FROM Hyr_din_lya_AB_fullstandig.personal WHERE lon >(SELECT * FROMhogstalon);
+
+--multiple people living in this apartment, so we divide cost by persons to see price per person living in house hold.
+SELECT hyra/antalboende AS "kostnad per person", antalboende, hyra, bostadid, adressFROMHyr_din_lya_AB_fullstandig.bostadskontraktJOIN bostad ONbostad.bostadid=bostadskontrakt.bostadsid;
+
+--insering new employee
+INSERT INTO personal (roll, jobbNr, jobbMail,fNamn,eNamn,lon)VALUES ('Inspektör','+46705847362','alex.berg@hyrdinlya.se','Alex','Berg',35000);
