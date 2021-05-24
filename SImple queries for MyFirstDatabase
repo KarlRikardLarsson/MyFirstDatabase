@@ -1,5 +1,5 @@
 --employee gained 15% salary increase.
-UPDATE Hyr_din_lya_AB_fullstandig.personalSET lon = lon*1.15WHERE personalid = 3;
+UPDATE Hyr_din_lya_AB_fullstandig.personalSET lon = lon*1.15 WHERE personalid = 3;
 
 --check second-highest salary
 SELECT max(lon), roll, fNamn,eNamnFROM Hyr_din_lya_fullstandig.personalWHERE lon < (SELECT max(lon) FROM Hyr_din_lya_fullstandig.personal);
